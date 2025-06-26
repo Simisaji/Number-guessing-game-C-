@@ -1,0 +1,57 @@
+#include <iostream>
+#include <cstdlib>
+#include <ctime>
+#include <string>
+#include <cctype> // for tolower
+
+using namespace std;
+
+int main() {
+    srand(time(0));      // ✅ Seed random only once at the start
+    string playAgain;
+
+    do {
+        int numberToGuess = rand() % 100 + 1;
+        int guess;
+        int attempts = 3;
+
+        cout << "\n🎯 Welcome to the number guessing game!\n";
+        cout << "Pick a number between 1 and 100. You have 3 attempts.\n";
+
+        while (attempts > 0) {
+            cout << "Enter your guess: ";
+            cin >> guess;
+
+            if (guess > numberToGuess) {
+                cout << "😅 Oops, too high! ⬆️ Try again 🔄.\n";
+            } else if (guess < numberToGuess) {
+                cout << "😅 Oops, too low! ⬇️ Try again 🔄.\n";
+            } else {
+                cout << "🥳 Well done! You guessed the number!\n";
+                break;
+            }
+
+            attempts--;
+        }
+
+        if (attempts == 0 && guess != numberToGuess) {
+            cout << "😢 Sorry, you're out of attempts. The number was " << numberToGuess << ".\n";
+        }
+
+        // Ask to play again with Yes/No
+        cout << "\n🔁 Do you want to play again? (Yes/No): ";
+        cin >> playAgain;
+
+        // Convert input to lowercase for case-insensitive comparison
+        for (auto &c : playAgain) {
+            c = tolower(c);
+        }
+
+    } while (playAgain == "yes");
+
+    // Final message
+    cout << "\n🎮 Thanks for playing!\n";
+    cout << "👋 Thank you for playing with me.\n Come back again☺️\n";
+
+    return 0;
+}
